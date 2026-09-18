@@ -2,3 +2,20 @@
 .setup-panel { margin-bottom: 28px; }.setup-panel h3, .action-panel h3 { margin-bottom: 12px; font-size: 21px; letter-spacing: -.04em; }.setup-panel p, .action-panel p, .muted-copy { color: #68746c; font-size: 14px; line-height: 1.6; }
 .live-fund-card { margin-bottom: 16px; }.action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }.action-panel { display: flex; flex-direction: column; gap: 12px; }.action-panel label { display: grid; gap: 6px; color: #53635a; font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; }.action-panel input { width: 100%; border: 1px solid #cbd0c7; background: #f9f7ef; color: #1e2a24; padding: 12px; font: inherit; font-size: 13px; outline: none; }.action-panel input:focus { border-color: #bf7620; }.action-button { margin-top: 4px; }.action-button:disabled { cursor: not-allowed; opacity: .45; }.transaction-note, .notice { color: #5e795b !important; font-family: 'DM Mono', monospace; font-size: 11px !important; }.notice { margin: 24px 0 0; border-left: 3px solid #e7a63b; padding: 12px 14px; }.spending-section { padding-top: 88px; }.request-details { display: grid; gap: 7px; margin: 8px 0; padding: 14px; background: #f1f0e9; color: #68746c; font-size: 12px; line-height: 1.45; }.request-details strong { color: #1e2a24; font-size: 18px; }.appkit-button { min-height: 42px; }
 @media (max-width: 700px) { .action-grid { grid-template-columns: 1fr; } }
+
+.theme-toggle { display: inline-flex; align-items: center; gap: 7px; border: 1px solid #cbd0c7; border-radius: 999px; padding: 9px 12px; background: transparent; color: #53635a; font-size: 12px; font-weight: 800; }
+.theme-toggle:hover { border-color: #bf7620; color: #1e2a24; }
+[data-theme='dark'] body { background: #111815; color: #e7eee8; }
+[data-theme='dark'] #root { background: radial-gradient(circle at 84% 10%, #263c32 0, transparent 32%), #111815; }
+[data-theme='dark'] nav, [data-theme='dark'] .hero-copy, [data-theme='dark'] .setup-panel p, [data-theme='dark'] .action-panel p, [data-theme='dark'] .muted-copy { color: #a9b9ae; }
+[data-theme='dark'] nav a:hover, [data-theme='dark'] .theme-toggle:hover { color: #f3f7f2; }
+[data-theme='dark'] h1, [data-theme='dark'] h2, [data-theme='dark'] h3, [data-theme='dark'] .fund-metrics strong, [data-theme='dark'] .request-details strong { color: #f3f7f2; }
+[data-theme='dark'] .section-heading, [data-theme='dark'] .principle-list, [data-theme='dark'] .principle-list p, [data-theme='dark'] .site-footer { border-color: #34463d; }
+[data-theme='dark'] .status-pill, [data-theme='dark'] .theme-toggle { border-color: #496054; color: #b5c8bb; }
+[data-theme='dark'] .fund-card, [data-theme='dark'] .setup-panel, [data-theme='dark'] .action-panel { border-color: #34463d; background: rgba(28, 43, 36, .82); }
+[data-theme='dark'] .fund-card p, [data-theme='dark'] .fund-metrics span, [data-theme='dark'] .card-topline, [data-theme='dark'] .card-footer, [data-theme='dark'] .site-footer { color: #9db0a3; }
+[data-theme='dark'] .progress-track { background: #34463d; }
+[data-theme='dark'] .button-secondary { border-color: #496054; color: #f3f7f2; }
+[data-theme='dark'] .action-panel input { border-color: #496054; background: #17241e; color: #f3f7f2; }
+[data-theme='dark'] .request-details { background: #17241e; color: #a9b9ae; }
+[data-theme='dark'] .theme-toggle:hover { border-color: #e7a63b; }
