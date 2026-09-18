@@ -1,14 +1,56 @@
+# ================================
+# Node / Frontend
+# ================================
 node_modules/
-dist/
-frontend/.vite/
+**/node_modules/
 
+dist/
+**/dist/
+
+.vite/
+**/.vite/
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ================================
+# Environment variables / secrets
+# ================================
 .env
 .env.*
 !.env.example
 
-broadcast/
-cache/
-out/
+# ================================
+# Foundry / Solidity
+# ================================
+contract/lib/
+contract/cache/
+contract/out/
+contract/broadcast/
 
-.DS_Store
+# Foundry gas snapshot
+contract/.gas-snapshot
+
+# ================================
+# IDE / Editor
+# ================================
 .vscode/
+.idea/
+
+# ================================
+# OS files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# Temporary files
+# ================================
+*.log
+*.tmp
+*.temp
+*.swp
