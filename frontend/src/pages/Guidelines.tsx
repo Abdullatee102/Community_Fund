@@ -41,8 +41,8 @@ function Guidelines() {
           <p>
             Once the target is reached, contributors become the approval
             community for spending requests. The creator can propose where the
-            money should go, but approved requests are executed through the
-            smart contract.
+            money should go, but approved requests are executed through the smart
+            contract.
           </p>
 
           <p>
@@ -64,72 +64,64 @@ function Guidelines() {
         <div className="guidelines-flow">
           <article className="guideline-step">
             <span>01</span>
+
             <h3>Fund is created</h3>
+
             <p>
               A creator defines the fund title, purpose, funding target and
               deadline.
             </p>
           </article>
 
-          <div className="flow-arrow" aria-hidden="true">
-            →
-          </div>
-
           <article className="guideline-step">
             <span>02</span>
+
             <h3>Community contributes</h3>
+
             <p>
               Anyone can contribute while the fund is still accepting funds and
               before the deadline.
             </p>
           </article>
 
-          <div className="flow-arrow" aria-hidden="true">
-            →
-          </div>
-
           <article className="guideline-step">
             <span>03</span>
+
             <h3>Target is reached</h3>
+
             <p>
               When the exact funding target is reached, the fund becomes
               <strong> Funded</strong>.
             </p>
           </article>
 
-          <div className="flow-arrow" aria-hidden="true">
-            →
-          </div>
-
           <article className="guideline-step">
             <span>04</span>
+
             <h3>Spending is proposed</h3>
+
             <p>
               The creator creates a spending request with a recipient, amount
               and purpose.
             </p>
           </article>
 
-          <div className="flow-arrow" aria-hidden="true">
-            →
-          </div>
-
           <article className="guideline-step">
             <span>05</span>
+
             <h3>Contributors approve</h3>
+
             <p>
               Contributors vote on the request. Each contributor has one
               approval regardless of contribution size.
             </p>
           </article>
 
-          <div className="flow-arrow" aria-hidden="true">
-            →
-          </div>
-
           <article className="guideline-step">
             <span>06</span>
+
             <h3>Request is executed</h3>
+
             <p>
               Once enough approvals are reached, anyone can execute the request
               and the contract sends the approved amount to the recipient.

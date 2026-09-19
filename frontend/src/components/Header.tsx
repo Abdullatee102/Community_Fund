@@ -11,10 +11,10 @@ function Header({ theme, onToggleTheme }: HeaderProps) {
     <header className="site-header">
       <a className="brand" href="/" aria-label="BotCommunityFund home">
         <span className="brand-mark">B</span>
-        <span>BotCommunityFund</span>
+        <span className="brand-name">BotCommunityFund</span>
       </a>
 
-      <nav aria-label="Primary navigation">
+      <nav className="site-nav" aria-label="Primary navigation">
         <a className="desktop-nav-link" href="/#fund">
           Explore funds
         </a>
