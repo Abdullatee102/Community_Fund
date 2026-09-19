@@ -21,6 +21,11 @@
         "name": "fundingDeadline_",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "creator_",
+        "type": "address",
+        "internalType": "address"
       }
     ],
     "stateMutability": "nonpayable"
@@ -620,6 +625,11 @@
   {
     "type": "error",
     "name": "InvalidAmount",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidCreator",
     "inputs": []
   },
   {

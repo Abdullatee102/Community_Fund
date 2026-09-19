@@ -44,6 +44,7 @@ contract CommunityFund is ReentrancyGuard {
     error InvalidTarget();
     error InvalidDeadline();
     error InvalidTitle();
+    error InvalidCreator();
     error InvalidRecipient();
     error InvalidAmount();
     error NotCreator();
@@ -68,13 +69,44 @@ contract CommunityFund is ReentrancyGuard {
         uint256 target,
         uint256 deadline
     );
-    event ContributionMade(address indexed contributor, uint256 amount, uint256 totalRaised);
-    event FundingGoalReached(uint256 totalRaised, uint256 requiredApprovals);
+
+    event ContributionMade(
+        address indexed contributor,
+        uint256 amount,
+        uint256 totalRaised
+    );
+
+    event FundingGoalReached(
+        uint256 totalRaised,
+        uint256 requiredApprovals
+    );
+
     event FundingFailed();
-    event SpendingRequestCreated(uint256 indexed requestId, address indexed recipient, uint256 amount, string metadataUri);
-    event SpendingRequestApproved(uint256 indexed requestId, address indexed contributor, uint256 approvalCount);
-    event SpendingRequestExecuted(uint256 indexed requestId, address indexed recipient, uint256 amount);
-    event RefundClaimed(address indexed contributor, uint256 amount);
+
+    event SpendingRequestCreated(
+        uint256 indexed requestId,
+        address indexed recipient,
+        uint256 amount,
+        string metadataUri
+    );
+
+    event SpendingRequestApproved(
+        uint256 indexed requestId,
+        address indexed contributor,
+        uint256 approvalCount
+    );
+
+    event SpendingRequestExecuted(
+        uint256 indexed requestId,
+        address indexed recipient,
+        uint256 amount
+    );
+
+    event RefundClaimed(
+        address indexed contributor,
+        uint256 amount
+    );
+
     event FundCompleted();
     event FundCancelled();
 
@@ -82,20 +114,29 @@ contract CommunityFund is ReentrancyGuard {
         string memory title_,
         string memory metadataUri_,
         uint256 fundingTarget_,
-        uint256 fundingDeadline_
+        uint256 fundingDeadline_,
+        address creator_
     ) {
         if (bytes(title_).length == 0) revert InvalidTitle();
         if (fundingTarget_ == 0) revert InvalidTarget();
         if (fundingDeadline_ <= block.timestamp) revert InvalidDeadline();
+        if (creator_ == address(0)) revert InvalidCreator();
 
-        creator = msg.sender;
+        creator = creator_;
         title = title_;
         metadataUri = metadataUri_;
         fundingTarget = fundingTarget_;
         fundingDeadline = fundingDeadline_;
         status = FundStatus.Funding;
 
-        emit FundCreated(address(this), msg.sender, title_, metadataUri_, fundingTarget_, fundingDeadline_);
+        emit FundCreated(
+            address(this),
+            creator_,
+            title_,
+            metadataUri_,
+            fundingTarget_,
+            fundingDeadline_
+        );
     }
 
     function contribute() external payable nonReentrant {
@@ -109,28 +150,42 @@ contract CommunityFund is ReentrancyGuard {
             contributors.push(msg.sender);
             contributorCount += 1;
         }
+
         contributions[msg.sender] += msg.value;
         amountRaised += msg.value;
-        emit ContributionMade(msg.sender, msg.value, amountRaised);
+
+        emit ContributionMade(
+            msg.sender,
+            msg.value,
+            amountRaised
+        );
 
         if (amountRaised == fundingTarget) {
             status = FundStatus.Funded;
             requiredApprovals = contributorCount / 2 + 1;
-            emit FundingGoalReached(amountRaised, requiredApprovals);
+
+            emit FundingGoalReached(
+                amountRaised,
+                requiredApprovals
+            );
         }
     }
 
     function markFundingFailed() external {
         if (status != FundStatus.Funding) revert WrongStatus();
         if (block.timestamp < fundingDeadline) revert DeadlineNotReached();
+
         status = FundStatus.Failed;
+
         emit FundingFailed();
     }
 
     function cancelFund() external {
         if (msg.sender != creator) revert NotCreator();
         if (status != FundStatus.Funding) revert WrongStatus();
+
         status = FundStatus.Cancelled;
+
         emit FundCancelled();
     }
 
@@ -145,6 +200,7 @@ contract CommunityFund is ReentrancyGuard {
         if (amount == 0) revert InvalidAmount();
 
         requestId = spendingRequests.length;
+
         spendingRequests.push(
             SpendingRequest({
                 recipient: recipient,
@@ -155,44 +211,90 @@ contract CommunityFund is ReentrancyGuard {
                 cancelled: false
             })
         );
-        emit SpendingRequestCreated(requestId, recipient, amount, metadataUri_);
+
+        emit SpendingRequestCreated(
+            requestId,
+            recipient,
+            amount,
+            metadataUri_
+        );
     }
 
     function approveSpendingRequest(uint256 requestId) external {
         if (status != FundStatus.Funded) revert WrongStatus();
         if (requestId >= spendingRequests.length) revert RequestNotFound();
+
         SpendingRequest storage request = spendingRequests[requestId];
-        if (request.executed || request.cancelled) revert RequestNotExecutable();
-        if (contributions[msg.sender] == 0) revert NotContributor();
-        if (approvals[requestId][msg.sender]) revert AlreadyApproved();
+
+        if (request.executed || request.cancelled) {
+            revert RequestNotExecutable();
+        }
+
+        if (contributions[msg.sender] == 0) {
+            revert NotContributor();
+        }
+
+        if (approvals[requestId][msg.sender]) {
+            revert AlreadyApproved();
+        }
 
         approvals[requestId][msg.sender] = true;
         request.approvalCount += 1;
-        emit SpendingRequestApproved(requestId, msg.sender, request.approvalCount);
+
+        emit SpendingRequestApproved(
+            requestId,
+            msg.sender,
+            request.approvalCount
+        );
     }
 
     function cancelSpendingRequest(uint256 requestId) external {
         if (msg.sender != creator) revert NotCreator();
         if (status != FundStatus.Funded) revert WrongStatus();
         if (requestId >= spendingRequests.length) revert RequestNotFound();
+
         SpendingRequest storage request = spendingRequests[requestId];
-        if (request.executed || request.cancelled) revert RequestNotExecutable();
+
+        if (request.executed || request.cancelled) {
+            revert RequestNotExecutable();
+        }
+
         request.cancelled = true;
     }
 
-    function executeSpendingRequest(uint256 requestId) external nonReentrant {
+    function executeSpendingRequest(
+        uint256 requestId
+    ) external nonReentrant {
         if (status != FundStatus.Funded) revert WrongStatus();
         if (requestId >= spendingRequests.length) revert RequestNotFound();
+
         SpendingRequest storage request = spendingRequests[requestId];
-        if (request.executed || request.cancelled || request.approvalCount < requiredApprovals) {
+
+        if (
+            request.executed ||
+            request.cancelled ||
+            request.approvalCount < requiredApprovals
+        ) {
             revert RequestNotExecutable();
         }
-        if (address(this).balance < request.amount) revert InsufficientBalance();
+
+        if (address(this).balance < request.amount) {
+            revert InsufficientBalance();
+        }
 
         request.executed = true;
-        (bool success,) = request.recipient.call{value: request.amount}("");
+
+        (bool success,) = request.recipient.call{
+            value: request.amount
+        }("");
+
         if (!success) revert TransferFailed();
-        emit SpendingRequestExecuted(requestId, request.recipient, request.amount);
+
+        emit SpendingRequestExecuted(
+            requestId,
+            request.recipient,
+            request.amount
+        );
 
         if (address(this).balance == 0) {
             status = FundStatus.Completed;
@@ -201,27 +303,57 @@ contract CommunityFund is ReentrancyGuard {
     }
 
     function claimRefund() external nonReentrant {
-        if (status != FundStatus.Failed && status != FundStatus.Cancelled) revert WrongStatus();
+        if (
+            status != FundStatus.Failed &&
+            status != FundStatus.Cancelled
+        ) {
+            revert WrongStatus();
+        }
+
         uint256 amount = contributions[msg.sender];
+
         if (amount == 0) revert NotContributor();
         if (refunded[msg.sender]) revert AlreadyRefunded();
 
         refunded[msg.sender] = true;
+
         (bool success,) = msg.sender.call{value: amount}("");
+
         if (!success) revert TransferFailed();
-        emit RefundClaimed(msg.sender, amount);
+
+        emit RefundClaimed(
+            msg.sender,
+            amount
+        );
     }
 
-    function getContributors() external view returns (address[] memory) {
+    function getContributors()
+        external
+        view
+        returns (address[] memory)
+    {
         return contributors;
     }
 
-    function getSpendingRequest(uint256 requestId) external view returns (SpendingRequest memory) {
-        if (requestId >= spendingRequests.length) revert RequestNotFound();
+    function getSpendingRequest(
+        uint256 requestId
+    )
+        external
+        view
+        returns (SpendingRequest memory)
+    {
+        if (requestId >= spendingRequests.length) {
+            revert RequestNotFound();
+        }
+
         return spendingRequests[requestId];
     }
 
-    function spendingRequestCount() external view returns (uint256) {
+    function spendingRequestCount()
+        external
+        view
+        returns (uint256)
+    {
         return spendingRequests.length;
     }
 }

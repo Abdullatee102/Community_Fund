@@ -26,8 +26,18 @@ export const botTestnet = defineChain({
   },
 })
 
-const configuredFundAddress = import.meta.env.VITE_COMMUNITY_FUND_CONTRACT_ADDRESS
+const configuredFundAddress =
+  import.meta.env.VITE_COMMUNITY_FUND_CONTRACT_ADDRESS
 
-export const communityFundAddress: Address | undefined = isAddress(configuredFundAddress || '')
-  ? configuredFundAddress
-  : undefined
+export const communityFundAddress: Address | undefined =
+  isAddress(configuredFundAddress || '')
+    ? configuredFundAddress
+    : undefined
+
+const configuredFactoryAddress =
+  import.meta.env.VITE_COMMUNITY_FUND_FACTORY_ADDRESS
+
+export const communityFundFactoryAddress: Address | undefined =
+  isAddress(configuredFactoryAddress || '')
+    ? configuredFactoryAddress
+    : undefined
