@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useAccount, useChainId, useReadContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { zeroAddress, type Address, type Hash } from 'viem'
 import communityFundAbi from '../abi/CommunityFund.json'
@@ -70,8 +72,15 @@ export function useCampaignStatus() {
 }
 
 function useFundWrite() {
+  const queryClient = useQueryClient()
   const write = useWriteContract()
   const receipt = useWaitForTransactionReceipt({ hash: write.data })
+
+  useEffect(() => {
+    if (receipt.isSuccess) {
+      void queryClient.invalidateQueries()
+    }
+  }, [queryClient, receipt.isSuccess])
 
   const submit = (functionName: string, args: readonly unknown[] = [], value?: bigint) => {
     if (!communityFundAddress) return

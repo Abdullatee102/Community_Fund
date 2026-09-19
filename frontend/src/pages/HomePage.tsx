@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { formatEther, parseEther, type Address } from 'viem'
-import { useQueryClient } from '@tanstack/react-query'
 import { useAccount } from 'wagmi'
 import {
   useApprovalStatus,
@@ -24,6 +23,13 @@ function formatDeadline(value: unknown) {
   return typeof value === 'bigint' ? new Date(Number(value) * 1000).toLocaleDateString() : '—'
 }
 
+function formatPurpose(value: unknown) {
+  if (typeof value !== 'string' || value.startsWith('ipfs://replace-with-')) {
+    return 'Shared community project with transparent on-chain funding.'
+  }
+  return value
+}
+
 function explainError(error: Error | null) {
   if (!error) return ''
   const message = error.message.toLowerCase()
@@ -37,17 +43,10 @@ function HomePage() {
   const fund = useFund()
   const readiness = useWalletReadiness()
   const { address } = useAccount()
-  const queryClient = useQueryClient()
   const contribute = useContribute()
   const refund = useClaimRefund()
   const [amount, setAmount] = useState('')
   const [notice, setNotice] = useState('')
-
-  useEffect(() => {
-    if (contribute.isConfirmed || refund.isConfirmed) {
-      void queryClient.invalidateQueries()
-    }
-  }, [contribute.isConfirmed, refund.isConfirmed, queryClient])
 
   const raised = typeof fund.raised === 'bigint' ? fund.raised : 0n
   const target = typeof fund.target === 'bigint' ? fund.target : 0n
@@ -97,7 +96,7 @@ function HomePage() {
           <section className="fund-card live-fund-card">
             <div className="card-topline"><span className="status-dot" />{status}</div>
             <h3>{String(fund.title || 'Community fund')}</h3>
-            <p>{String(fund.metadataUri || 'Metadata is available on-chain.')}</p>
+            <p>{formatPurpose(fund.metadataUri)}</p>
             <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>
             <div className="fund-metrics"><strong>{formatBot(fund.raised)}</strong><span>of {formatBot(fund.target)}</span></div>
             <div className="card-footer"><span>{String(fund.contributors ?? 0)} contributors</span><span>Deadline {formatDeadline(fund.deadline)}</span></div>
