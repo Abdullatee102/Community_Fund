@@ -13,14 +13,50 @@ function Header({ theme, onToggleTheme }: HeaderProps) {
         <span className="brand-mark">B</span>
         <span>BotCommunityFund</span>
       </a>
+
       <nav aria-label="Primary navigation">
-        <a href="#funds">Explore funds</a>
-        <a href="#create">Create a fund</a>
-        <button className="theme-toggle" type="button" onClick={onToggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
-          <span aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span>
+        <a className="desktop-nav-link" href="/#fund">
+          Explore funds
+        </a>
+
+        <a className="desktop-nav-link" href="/#create">
+          Create a fund
+        </a>
+
+        <a className="guidelines-nav-link" href="/#guidelines">
+          Guidelines
+        </a>
+
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${
+            theme === 'light' ? 'dark' : 'light'
+          } theme`}
+          title={`Switch to ${
+            theme === 'light' ? 'dark' : 'light'
+          } theme`}
+        >
+          <span aria-hidden="true">
+            {theme === 'light' ? '☾' : '☀'}
+          </span>
+
           <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
         </button>
-        {hasReownProjectId ? createElement('appkit-button') : <button className="wallet-button" type="button" disabled title="Add VITE_REOWN_PROJECT_ID to enable wallet connection">Wallet unavailable</button>}
+
+        {hasReownProjectId ? (
+          createElement('appkit-button')
+        ) : (
+          <button
+            className="wallet-button"
+            type="button"
+            disabled
+            title="Add VITE_REOWN_PROJECT_ID to enable wallet connection"
+          >
+            Wallet unavailable
+          </button>
+        )}
       </nav>
     </header>
   )

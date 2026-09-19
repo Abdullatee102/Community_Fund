@@ -166,7 +166,9 @@ function HomePage() {
    * This allows the UI to correctly identify creator-only actions.
    */
   const creatorQuery = useReadContract({
-    address: activeFundAddress ?? '0x0000000000000000000000000000000000000000',
+    address:
+      activeFundAddress ??
+      '0x0000000000000000000000000000000000000000',
     abi: communityFundAbi,
     functionName: 'creator',
     query: {
@@ -178,6 +180,26 @@ function HomePage() {
     typeof creatorQuery.data === 'string'
       ? creatorQuery.data as Address
       : undefined
+
+  /*
+   * Read the approval threshold directly from the contract.
+   * The contract calculates this when the funding target is reached.
+   */
+  const requiredApprovalsQuery = useReadContract({
+    address:
+      activeFundAddress ??
+      '0x0000000000000000000000000000000000000000',
+    abi: communityFundAbi,
+    functionName: 'requiredApprovals',
+    query: {
+      enabled: Boolean(activeFundAddress),
+    },
+  })
+
+  const requiredApprovals =
+    typeof requiredApprovalsQuery.data === 'bigint'
+      ? requiredApprovalsQuery.data
+      : 0n
 
   const isCreator =
     Boolean(address) &&
@@ -228,7 +250,9 @@ function HomePage() {
       const value = parseEther(amount)
 
       if (value <= 0n) {
-        setNotice('Enter a valid BOT amount greater than zero.')
+        setNotice(
+          'Enter a valid BOT amount greater than zero.',
+        )
         return
       }
 
@@ -247,12 +271,16 @@ function HomePage() {
   const createProject = () => {
     try {
       if (!readiness.isConnected) {
-        setNotice('Connect your wallet before creating a project.')
+        setNotice(
+          'Connect your wallet before creating a project.',
+        )
         return
       }
 
       if (!readiness.isCorrectNetwork) {
-        setNotice('Switch your wallet to Bohr Testnet (chain 968).')
+        setNotice(
+          'Switch your wallet to Bohr Testnet (chain 968).',
+        )
         return
       }
 
@@ -334,6 +362,13 @@ function HomePage() {
             href="#spending"
           >
             Review spending
+          </a>
+
+          <a
+            className="button button-secondary"
+            href="/#guidelines"
+          >
+            Guidelines
           </a>
         </div>
       </section>
@@ -476,6 +511,7 @@ function HomePage() {
                   inputMode="numeric"
                   placeholder="7"
                 />
+
                 <small>
                   Number of days from now
                 </small>
@@ -696,6 +732,7 @@ function HomePage() {
         fundAddress={activeFundAddress}
         status={status}
         isCreator={isCreator}
+        requiredApprovals={requiredApprovals}
         onNotice={setNotice}
       />
 
@@ -771,6 +808,7 @@ type SpendingPanelProps = {
   fundAddress?: Address
   status: string
   isCreator: boolean
+  requiredApprovals: bigint
   onNotice: (notice: string) => void
 }
 
@@ -779,6 +817,7 @@ function SpendingPanel({
   fundAddress,
   status,
   isCreator,
+  requiredApprovals,
   onNotice,
 }: SpendingPanelProps) {
   const [requestId, setRequestId] =
@@ -836,7 +875,12 @@ function SpendingPanel({
 
   const canReview =
     status === 'Funded' &&
-    Boolean(details)
+    details !== undefined
+
+  const approvalsReached =
+    details !== undefined &&
+    requiredApprovals > 0n &&
+    details.approvalCount >= requiredApprovals
 
   const createRequest = () => {
     try {
@@ -943,6 +987,17 @@ function SpendingPanel({
                     ? 'Cancelled'
                     : 'Open'}
               </span>
+
+              {status === 'Funded' &&
+                !details.executed &&
+                !details.cancelled &&
+                requiredApprovals > 0n && (
+                  <span>
+                    {details.approvalCount.toString()} /{' '}
+                    {requiredApprovals.toString()} required
+                    approvals
+                  </span>
+                )}
             </div>
           ) : (
             <p className="muted-copy">
@@ -983,7 +1038,7 @@ function SpendingPanel({
               !details ||
               details.executed ||
               details.cancelled ||
-              details.approvalCount < 1n ||
+              !approvalsReached ||
               execute.isPending ||
               execute.isConfirming
             }
@@ -995,7 +1050,9 @@ function SpendingPanel({
           >
             {execute.isConfirming
               ? 'Waiting for confirmation'
-              : 'Execute request'}
+              : approvalsReached
+                ? 'Execute request'
+                : 'Waiting for approvals'}
           </button>
         </article>
 
