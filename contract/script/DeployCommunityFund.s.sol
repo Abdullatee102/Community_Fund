@@ -3,35 +3,25 @@ pragma solidity ^0.8.24;
 
 import {Script} from "forge-std/Script.sol";
 import {console2} from "forge-std/console2.sol";
-import {CommunityFund} from "../src/CommunityFund.sol";
+import {CommunityFundFactory} from "../src/CommunityFund.sol";
 
-contract DeployCommunityFund is Script {
-    function run() external returns (CommunityFund fund) {
+contract DeployCommunityFundFactory is Script {
+    function run() external returns (CommunityFundFactory factory) {
         string memory rpcUrl = vm.envString("BOT_RPC_URL");
         uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
-        string memory title = vm.envString("COMMUNITY_FUND_TITLE");
-        string memory metadataUri = vm.envString("COMMUNITY_FUND_METADATA_URI");
-        uint256 fundingTarget = vm.envUint("COMMUNITY_FUND_TARGET");
-        uint256 fundingDeadline = vm.envUint("COMMUNITY_FUND_DEADLINE");
 
         address deployer = vm.addr(deployerPrivateKey);
 
         vm.startBroadcast(deployerPrivateKey);
 
-        fund = new CommunityFund(
-            title,
-            metadataUri,
-            fundingTarget,
-            fundingDeadline,
-            deployer
-        );
+        factory = new CommunityFundFactory();
 
         vm.stopBroadcast();
 
         console2.log("Network RPC", rpcUrl);
         console2.log("Chain ID", block.chainid);
         console2.log("Deployer", deployer);
-        console2.log("CommunityFund", address(fund));
+        console2.log("CommunityFundFactory", address(factory));
 
         string memory explorerUrl = vm.envOr(
             "BOHR_EXPLORER_URL",
@@ -52,7 +42,7 @@ contract DeployCommunityFund is Script {
             string.concat(
                 explorerUrl,
                 "/address/",
-                vm.toString(address(fund))
+                vm.toString(address(factory))
             )
         );
     }
