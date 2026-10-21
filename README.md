@@ -54,21 +54,18 @@ The application is configured for the **Bohr Testnet**.
 
 ---
 
-# Deployed Contract
-
-The current CommunityFund contract is deployed on the Bohr Testnet.
+# Deployed Contracts
 
 | Property               | Value                                                                |
 | ---------------------- | -------------------------------------------------------------------- |
-| Contract               | `0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312`                         |
+| CommunityFund factory  | `0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08`                         |
+| Legacy/default fund    | `0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312`                         |
 | Network                | Bohr Testnet                                                         |
 | Chain ID               | `968`                                                                |
-| Deployment Block       | `23961806`                                                           |
-| Deployment Transaction | `0x1fba67db07b4766bc6a6d6a0fe760538c46e48aeb3c5dd2ac6892866eb4bccc5` |
+| Legacy fund block      | `23961806`                                                           |
+| Legacy fund transaction| `0x1fba67db07b4766bc6a6d6a0fe760538c46e48aeb3c5dd2ac6892866eb4bccc5` |
 
-The contract source has been flattened and verified on the Bohr explorer.
-
-The currently deployed contract should be treated as the active deployment. The previous deployment address is historical and should not be used by the frontend.
+The frontend uses the factory address to create and list funds. The legacy/default fund address points to an individual `CommunityFund` instance. These addresses serve different purposes and must not be used interchangeably. The deployment block and transaction above refer to the legacy/default fund.
 
 ---
 
@@ -96,12 +93,13 @@ Example:
 
 ```env
 VITE_REOWN_PROJECT_ID=YOUR_REOWN_PROJECT_ID
+VITE_COMMUNITY_FUND_FACTORY_ADDRESS=0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08
 VITE_COMMUNITY_FUND_CONTRACT_ADDRESS=0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312
 ```
 
 Never place private keys in frontend environment files.
 
-The frontend uses the deployed CommunityFund contract address to interact with the smart contract.
+The frontend uses the factory address to create and list funds. The optional `VITE_COMMUNITY_FUND_CONTRACT_ADDRESS` configures the legacy/default fund instance.
 
 ---
 
@@ -809,7 +807,7 @@ Some operations cannot be tested against an already-funded/completed test state 
 
 # Current Deployment Reference
 
-For the current active deployment:
+The frontend's active factory integration uses the factory address below. The legacy/default address is a separate `CommunityFund` instance, not an alternate factory address.
 
 ```text
 Network:
@@ -818,7 +816,10 @@ Bohr Testnet
 Chain ID:
 968
 
-Contract:
+Factory:
+0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08
+
+Legacy/default fund:
 0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312
 
 Explorer:
