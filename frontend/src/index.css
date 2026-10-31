@@ -378,13 +378,76 @@ h2 {
 .site-footer {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  padding: 22px 0 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 24px 0 32px;
   border-top: 1px solid #cbd0c7;
   color: #7a857d;
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 11px;
+}
+
+.footer-col {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-weight: 800;
+  color: #1e2a24;
   text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.footer-network {
+  color: #7a857d;
+  text-transform: uppercase;
+}
+
+.ecosystem-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1e2a24;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.botchain-logo {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+.ecosystem-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: #bf7620;
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: #1e2a24;
+  text-decoration: underline;
+}
+
+.footer-divider {
+  color: #cbd0c7;
 }
 
 
@@ -496,6 +559,21 @@ h2 {
   .site-footer {
     gap: 16px;
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-col {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .ecosystem-col {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #d8dbd2;
   }
 }
 
@@ -517,6 +595,12 @@ h2 {
 
   .site-nav {
     gap: 8px;
+  }
+
+  .footer-col.brand-col {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
   .theme-toggle,
