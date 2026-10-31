@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react'
+import './App.css'
 
 import Header from './components/Header'
 import HomePage from './pages/HomePage'
 import Guidelines from './pages/Guidelines'
 
 function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('botcommunityfund-theme')
+    return savedTheme === 'dark' ? 'dark' : 'light'
+  })
+
   const [isGuidelines, setIsGuidelines] = useState(
     window.location.hash === '#guidelines',
   )
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('botcommunityfund-theme', theme)
   }, [theme])
 
   useEffect(() => {
