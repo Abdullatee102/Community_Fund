@@ -47,7 +47,7 @@ function App() {
 
       <footer className="site-footer">
         <span>BotCommunityFund</span>
-        <span>Bohr Testnet · Chain 968</span>
+        <span>BotChain Mainnet · Chain 677</span>
       </footer>
     </>
   )

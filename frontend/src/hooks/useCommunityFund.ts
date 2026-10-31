@@ -16,7 +16,7 @@ import communityFundAbi from '../abi/CommunityFund.json'
 import communityFundFactoryAbi from '../abi/CommunityFundFactory.json'
 
 import {
-  botTestnet,
+  botMainnet,
   communityFundAddress,
   communityFundFactoryAddress,
 } from '../config/chains'
@@ -487,7 +487,7 @@ export function useWalletReadiness() {
     isConnected,
 
     isCorrectNetwork:
-      chainId === botTestnet.id,
+      chainId === botMainnet.id,
 
     hasContract:
       Boolean(communityFundAddress) ||

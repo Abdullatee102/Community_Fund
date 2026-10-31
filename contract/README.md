@@ -29,4 +29,4 @@ For Prompt 3, create a local ignored `.env` from `.env.example` with `DEPLOYER_P
 forge script script/DeployCommunityFund.s.sol:DeployCommunityFund --rpc-url $env:BOT_RPC_URL --broadcast
 ```
 
-Do not run deployment as part of Prompt 2. Bohr Testnet uses chain ID `968`, RPC `https://rpc.bohr.life`, native token `BOT`, and explorer `https://scan.bohr.life/`.
+Do not run deployment as part of Prompt 2. BotChain Mainnet uses chain ID `968`, RPC `https://rpc.bohr.life`, native token `BOT`, and explorer `https://scan.bohr.life/`.

@@ -484,8 +484,7 @@ function Guidelines() {
 
           <p>
             <strong>06</strong>
-            BotCommunityFund currently operates on the Bohr Testnet. Testnet
-            assets are not the same as mainnet funds.
+            BotCommunityFund operates on BotChain Mainnet (Chain ID 677). All contributions and spending transactions use live BOT tokens and are permanent.
           </p>
         </div>
       </section>

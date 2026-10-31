@@ -9,7 +9,7 @@ npm run build
 npm run lint
 ```
 
-The Bohr Testnet chain is centralized in `src/config/chains.ts`. Wallet provider setup lives in `src/config/appkit.ts`. Contract reads and writes live in `src/hooks/useCommunityFund.ts` and use the generated ABI at `src/abi/CommunityFund.json`.
+The BotChain Mainnet chain is centralized in `src/config/chains.ts`. Wallet provider setup lives in `src/config/appkit.ts`. Contract reads and writes live in `src/hooks/useCommunityFund.ts` and use the generated ABI at `src/abi/CommunityFund.json`.
 
 Set `VITE_COMMUNITY_FUND_FACTORY_ADDRESS` to enable factory reads and fund creation. `VITE_COMMUNITY_FUND_CONTRACT_ADDRESS` is optional and selects the legacy/default fund instance; funds returned by the factory can be used directly without it. `VITE_REOWN_PROJECT_ID` is optional for a local build; add it manually to enable the AppKit wallet control.
 

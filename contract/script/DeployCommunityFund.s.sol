@@ -24,8 +24,8 @@ contract DeployCommunityFundFactory is Script {
         console2.log("CommunityFundFactory", address(factory));
 
         string memory explorerUrl = vm.envOr(
-            "BOHR_EXPLORER_URL",
-            string("https://scan.bohr.life/")
+            "BOT_EXPLORER_URL",
+            vm.envOr("BOHR_EXPLORER_URL", string("https://scan.botchain.ai/"))
         );
 
         if (

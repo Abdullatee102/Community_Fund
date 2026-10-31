@@ -41,15 +41,15 @@ BotCommunityFund/
 
 # Network
 
-The application is configured for the **Bohr Testnet**.
+The application is configured for the **BotChain Mainnet**.
 
 | Property     | Value                     |
 | ------------ | ------------------------- |
-| Network      | Bohr Testnet              |
-| Chain ID     | `968`                     |
-| RPC          | `https://rpc.bohr.life`   |
+| Network      | BotChain Mainnet              |
+| Chain ID     | `677`                     |
+| RPC          | `https://rpc.botchain.ai`   |
 | Native Token | `BOT`                     |
-| Explorer     | `https://scan.bohr.life/` |
+| Explorer     | `https://scan.botchain.ai/` |
 | Total Supply | 150 million BOT           |
 
 ---
@@ -58,10 +58,10 @@ The application is configured for the **Bohr Testnet**.
 
 | Property               | Value                                                                |
 | ---------------------- | -------------------------------------------------------------------- |
-| CommunityFund factory  | `0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08`                         |
+| CommunityFund factory  | `0xe7f6fDC2a1B5a09aA56e2D646134CaEB46a1ce64`                         |
 | Legacy/default fund    | `0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312`                         |
-| Network                | Bohr Testnet                                                         |
-| Chain ID               | `968`                                                                |
+| Network                | BotChain Mainnet                                                         |
+| Chain ID               | `677`                                                                |
 | Legacy fund block      | `23961806`                                                           |
 | Legacy fund transaction| `0x1fba67db07b4766bc6a6d6a0fe760538c46e48aeb3c5dd2ac6892866eb4bccc5` |
 
@@ -93,7 +93,7 @@ Example:
 
 ```env
 VITE_REOWN_PROJECT_ID=YOUR_REOWN_PROJECT_ID
-VITE_COMMUNITY_FUND_FACTORY_ADDRESS=0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08
+VITE_COMMUNITY_FUND_FACTORY_ADDRESS=0xe7f6fDC2a1B5a09aA56e2D646134CaEB46a1ce64
 VITE_COMMUNITY_FUND_CONTRACT_ADDRESS=0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312
 ```
 
@@ -778,7 +778,7 @@ The project has progressed beyond the initial development-only stage.
 * ABI generated
 * Frontend blockchain integration implemented
 * Frontend environment configuration prepared
-* CommunityFund deployed to Bohr Testnet
+* CommunityFund deployed to BotChain Mainnet
 * Deployed contract address configured
 * Frontend redeployed with the active contract address
 * Contract source flattened
@@ -811,22 +811,22 @@ The frontend's active factory integration uses the factory address below. The le
 
 ```text
 Network:
-Bohr Testnet
+BotChain Mainnet
 
 Chain ID:
-968
+677
 
 Factory:
-0x28A9F50A5E8B1ffb8B3cd69e0e9A8F8a40195A08
+0xe7f6fDC2a1B5a09aA56e2D646134CaEB46a1ce64
 
 Legacy/default fund:
 0xd9E23Ab2C75b14F2D15DA1e928EB380ccd469312
 
 Explorer:
-https://scan.bohr.life/
+https://scan.botchain.ai/
 
 RPC:
-https://rpc.bohr.life
+https://rpc.botchain.ai
 ```
 
 ---
@@ -884,4 +884,4 @@ The result is a community fund where the important financial rules are visible a
 
 # License
 
-This project is currently being developed as a community Web3 application on the Bohr Testnet.
+This project is currently being developed as a community Web3 application on the BotChain Mainnet.

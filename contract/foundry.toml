@@ -11,6 +11,8 @@ remappings = ["@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"]
 
 [rpc_endpoints]
 bohr = "${BOT_RPC_URL}"
+botchain = "${BOT_RPC_URL}"
 
 [etherscan]
-bohr = { key = "${BOHR_EXPLORER_API_KEY}", url = "https://scan.bohr.life/api" }
+bohr = { key = "${BOHR_EXPLORER_API_KEY}", url = "https://scan.botchain.ai/api" }
+botchain = { key = "${BOT_EXPLORER_API_KEY}", url = "https://scan.botchain.ai/api" }

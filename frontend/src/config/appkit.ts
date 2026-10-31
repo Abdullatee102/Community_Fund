@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { createAppKit } from '@reown/appkit/react'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { botTestnet } from './chains'
+import { botMainnet } from './chains'
 
 export const queryClient = new QueryClient()
 
@@ -13,7 +13,7 @@ if (!projectId) {
 }
 
 export const wagmiAdapter = new WagmiAdapter({
-  networks: [botTestnet],
+  networks: [botMainnet],
   projectId: projectId || 'missing-reown-project-id',
 })
 
@@ -22,11 +22,11 @@ export const wagmiConfig = wagmiAdapter.wagmiConfig
 if (projectId) {
   createAppKit({
     adapters: [wagmiAdapter],
-    networks: [botTestnet],
+    networks: [botMainnet],
     projectId,
     metadata: {
       name: 'BotCommunityFund',
-      description: 'Transparent community funding on Bohr Testnet',
+      description: 'Transparent community funding on BotChain Mainnet',
       url: window.location.origin,
       icons: [`${window.location.origin}/favicon.svg`],
     },

@@ -81,7 +81,7 @@ function explainError(error: Error | null) {
     message.includes('wrong network') ||
     message.includes('chain')
   ) {
-    return 'Switch your wallet to Bohr Testnet (chain 968).'
+    return 'Switch your wallet to BotChain Mainnet (chain 677).'
   }
 
   return 'The transaction could not be completed. Check the project state and try again.'
@@ -241,7 +241,7 @@ function HomePage() {
       if (!canContribute) {
         setNotice(
           readiness.isConnected
-            ? 'Connect to Bohr Testnet and select a funding project.'
+            ? 'Connect to BotChain Mainnet and select a funding project.'
             : 'Connect your wallet to contribute.',
         )
         return
@@ -279,7 +279,7 @@ function HomePage() {
 
       if (!readiness.isCorrectNetwork) {
         setNotice(
-          'Switch your wallet to Bohr Testnet (chain 968).',
+          'Switch your wallet to BotChain Mainnet (chain 677).',
         )
         return
       }
@@ -336,7 +336,7 @@ function HomePage() {
     <main>
       <section className="hero-panel">
         <p className="eyebrow">
-          Bohr Testnet · BOT community funds
+          BotChain Mainnet · BOT community funds
         </p>
 
         <h1>

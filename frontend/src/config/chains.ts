@@ -1,15 +1,15 @@
 import { defineChain, isAddress, type Address } from 'viem'
 
-const botRpcUrl = import.meta.env.VITE_BOT_RPC_URL || 'https://rpc.bohr.life'
-const botChainId = Number(import.meta.env.VITE_BOT_CHAIN_ID || 968)
+const botRpcUrl = import.meta.env.VITE_BOT_RPC_URL || 'https://rpc.botchain.ai'
+const botChainId = Number(import.meta.env.VITE_BOT_CHAIN_ID || 677)
 
-if (botChainId !== 968) {
-  throw new Error('VITE_BOT_CHAIN_ID must be 968 for Bohr Testnet')
+if (botChainId !== 677) {
+  throw new Error('VITE_BOT_CHAIN_ID must be 677 for BotChain Mainnet')
 }
 
-export const botTestnet = defineChain({
-  id: 968,
-  name: 'Bohr Testnet',
+export const botMainnet = defineChain({
+  id: 677,
+  name: 'BotChain Mainnet',
   nativeCurrency: {
     name: 'BOT',
     symbol: 'BOT',
@@ -20,11 +20,14 @@ export const botTestnet = defineChain({
   },
   blockExplorers: {
     default: {
-      name: 'Bohr Scan',
-      url: import.meta.env.VITE_BOT_EXPLORER_URL || 'https://scan.bohr.life/',
+      name: 'BotChain Scan',
+      url: import.meta.env.VITE_BOT_EXPLORER_URL || 'https://scan.botchain.ai/',
     },
   },
 })
+
+// Backward-compatible alias
+export const botTestnet = botMainnet
 
 const configuredFundAddress =
   import.meta.env.VITE_COMMUNITY_FUND_CONTRACT_ADDRESS
