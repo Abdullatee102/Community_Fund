@@ -2,6 +2,8 @@
 
 React + Vite + TypeScript foundation for BotCommunityFund.
 
+**Live DApp:** [https://community-fund-5xgw.vercel.app/](https://community-fund-5xgw.vercel.app/)
+
 ```powershell
 npm install
 npm run dev

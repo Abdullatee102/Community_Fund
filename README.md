@@ -1,5 +1,7 @@
 # BotCommunityFund
 
+> **Live DApp:** [https://community-fund-5xgw.vercel.app/](https://community-fund-5xgw.vercel.app/)
+
 BotCommunityFund is a Web3 community crowdfunding and fund-management platform for shared projects.
 
 Instead of a rotating savings model, contributors collectively fund a defined community goal. The platform makes the fund's **purpose, target, progress, spending requests, approvals, releases, and refunds** transparent and verifiable on-chain.
@@ -45,6 +47,7 @@ The application is configured for the **BotChain Mainnet**.
 
 | Property     | Value                     |
 | ------------ | ------------------------- |
+| Live DApp    | [https://community-fund-5xgw.vercel.app/](https://community-fund-5xgw.vercel.app/) |
 | Network      | BotChain Mainnet              |
 | Chain ID     | `677`                     |
 | RPC          | `https://rpc.botchain.ai`   |
@@ -810,6 +813,9 @@ Some operations cannot be tested against an already-funded/completed test state 
 The frontend's active factory integration uses the factory address below. The legacy/default address is a separate `CommunityFund` instance, not an alternate factory address.
 
 ```text
+Live DApp:
+https://community-fund-5xgw.vercel.app/
+
 Network:
 BotChain Mainnet
 
