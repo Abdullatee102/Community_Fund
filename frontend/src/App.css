@@ -850,3 +850,27 @@
     padding: 20px;
   }
 }
+[data-theme='dark'] .footer-brand,
+[data-theme='dark'] .ecosystem-badge {
+  color: #f3f7f2;
+}
+
+[data-theme='dark'] .ecosystem-link-label {
+  color: #a9b9ae;
+}
+
+[data-theme='dark'] .footer-network {
+  color: #9db0a3;
+}
+
+[data-theme='dark'] .footer-link {
+  color: #e7a63b;
+}
+
+[data-theme='dark'] .footer-link:hover {
+  color: #f3f7f2;
+}
+
+[data-theme='dark'] .ecosystem-col {
+  border-top-color: #34463d;
+}

@@ -64,25 +64,29 @@ function App() {
           </div>
 
           <div className="ecosystem-links">
-            <a
-              href="https://botchain.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-link"
-              title="BOT Chain Official Website"
-            >
-              BOT Chain Website ↗
-            </a>
-            <span className="footer-divider" aria-hidden="true">·</span>
-            <a
-              href="https://scan.botchain.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-link"
-              title="BOT Chain Blockchain Explorer"
-            >
-              BOT Chain Explorer ↗
-            </a>
+            <div className="ecosystem-link-item">
+              <span className="ecosystem-link-label">BOT Chain website:</span>
+              <a
+                href="https://botchain.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >
+                https://botchain.ai
+              </a>
+            </div>
+
+            <div className="ecosystem-link-item">
+              <span className="ecosystem-link-label">BOT Chain explorer:</span>
+              <a
+                href="https://scan.botchain.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >
+                https://scan.botchain.ai
+              </a>
+            </div>
           </div>
         </div>
       </footer>
